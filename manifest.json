@@ -1,0 +1,19 @@
+{
+  "name": "CollegeTrackr",
+  "short_name": "Trackr",
+  "description": "Track and manage your college applications",
+  "theme_color": "#1e1e2f",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "splash_pages": null
+}
