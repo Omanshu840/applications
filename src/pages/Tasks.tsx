@@ -54,7 +54,7 @@ export default function TasksPage() {
   };
 
   return (
-    <div className="container p-6 space-y-6">
+    <div className="container p-6 space-y-6 ml-auto mr-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Application Tasks</h1>
         <Button onClick={() => setIsModalOpen(true)}>

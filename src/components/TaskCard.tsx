@@ -33,7 +33,7 @@ export function TaskCard({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -100 }}
-            className="border rounded-lg p-4 hover:shadow-sm transition-shadow"
+            className="border bg-background rounded-lg p-4 hover:shadow-sm transition-shadow"
         >
             <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3 flex-1">

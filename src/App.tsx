@@ -9,11 +9,12 @@ import CollegeDetailsPage from '@/pages/CollegeDetailsPage'
 import TasksPage from '@/pages/Tasks'
 import { MobileNavBar } from '@/components/MobileNavBar'
 import { ThemeProvider } from '@/components/ui/theme-provider'
+import { Sidebar } from './components/Sidebar';
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth()
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <div></div>
   if (!user) return <Navigate to="/login" replace />
 
   return children
@@ -21,9 +22,10 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
 
 export function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-    <BrowserRouter>
-      <div className='pb-20'>
+    <ThemeProvider>
+    <BrowserRouter basename="/applications">
+      <Sidebar/>
+      <div className='pb-20 md:ml-50'>
       <Toaster />
       <Routes>
         <Route path="/login" element={<Login />} />

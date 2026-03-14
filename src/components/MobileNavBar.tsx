@@ -1,10 +1,9 @@
 // components/MobileNavBar.tsx
-import { School, ListChecks, Moon, Sun } from 'lucide-react';
+import { School, ListChecks } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Button } from './ui/button';
-import { useTheme } from '@/components/ui/theme-provider';
 import { cn } from '@/lib/utils';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 const navItems = [
 //   {
@@ -31,11 +30,6 @@ const navItems = [
 
 export function MobileNavBar() {
   const { pathname } = useLocation();
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t">
@@ -81,19 +75,7 @@ export function MobileNavBar() {
         })}
         
         {/* Theme Toggle Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          className="rounded-full"
-        >
-          {theme === 'dark' ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          )}
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+        <ThemeSwitcher />
       </div>
     </nav>
   );

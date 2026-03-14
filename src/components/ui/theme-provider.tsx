@@ -1,58 +1,78 @@
+// theme-provider.tsx
 import { createContext, useContext, useEffect, useState } from "react"
 
-type Theme = "dark" | "light" | "system"
+type Mode = "light" | "dark" | "system"
+type ColorTheme = "default" | "bubblegum" | "claymorphism" | "quantum-rose" | "pastel-dreams"
 
 type ThemeProviderProps = {
   children: React.ReactNode
-  defaultTheme?: Theme
-  storageKey?: string
+  defaultMode?: Mode
+  defaultColorTheme?: ColorTheme
+  storageKeyMode?: string
+  storageKeyTheme?: string
 }
 
 type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
+  mode: Mode
+  colorTheme: ColorTheme
+  setMode: (mode: Mode) => void
+  setColorTheme: (theme: ColorTheme) => void
 }
 
 const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
+  mode: "system",
+  colorTheme: "default",
+  setMode: () => null,
+  setColorTheme: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  defaultMode = "system",
+  defaultColorTheme = "default",
+  storageKeyMode = "app-mode",
+  storageKeyTheme = "app-color-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  const [mode, setMode] = useState<Mode>(
+    () => (localStorage.getItem(storageKeyMode) as Mode) || defaultMode
+  )
+  const [colorTheme, setColorTheme] = useState<ColorTheme>(
+    () => (localStorage.getItem(storageKeyTheme) as ColorTheme) || defaultColorTheme
   )
 
+  // Apply changes to HTML root
   useEffect(() => {
-    const root = window.document.documentElement
+    const root = document.documentElement
 
+    // Remove old mode classes
     root.classList.remove("light", "dark")
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
+    // Handle mode
+    let activeMode = mode
+    if (mode === "system") {
+      activeMode = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light"
-
-      root.classList.add(systemTheme)
-      return
     }
+    root.classList.add(activeMode)
 
-    root.classList.add(theme)
-  }, [theme])
+    // Set data-theme for color palette
+    root.setAttribute("data-theme", colorTheme)
+  }, [mode, colorTheme])
 
   const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
+    mode,
+    colorTheme,
+    setMode: (m: Mode) => {
+      localStorage.setItem(storageKeyMode, m)
+      setMode(m)
+    },
+    setColorTheme: (t: ColorTheme) => {
+      localStorage.setItem(storageKeyTheme, t)
+      setColorTheme(t)
     },
   }
 
@@ -65,9 +85,7 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
-
-  if (context === undefined)
+  if (!context)
     throw new Error("useTheme must be used within a ThemeProvider")
-
   return context
 }

@@ -104,7 +104,7 @@ export function Dashboard() {
         });
 
     return (
-        <div className="container p-6">
+        <div className="container p-6 ml-auto mr-auto">
             <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-3 pt-2">
                     <div className="rounded-lg bg-primary/10 p-2">
@@ -116,7 +116,7 @@ export function Dashboard() {
                 </div>
 
                 {upcomingTasks.length > 0 ? (
-                    <Card className="bg-background hover:shadow-sm transition-shadow mt-4">
+                    <Card className="hover:shadow-sm transition-shadow mt-4">
                         <CardHeader>
                             <div className="flex items-center justify-between">
                                 <CardTitle className="text-lg flex items-center gap-2">
@@ -234,7 +234,7 @@ export function Dashboard() {
                 </div>
 
                 {/* Floating Action Button for mobile */}
-                <div className="fixed bottom-22 right-4 sm:hidden">
+                <div className="fixed bottom-22 right-4">
                     <Button
                         size="icon"
                         className="rounded-full h-14 w-14 shadow-lg"

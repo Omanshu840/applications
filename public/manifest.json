@@ -5,11 +5,11 @@
   "theme_color": "#1e1e2f",
   "background_color": "#ffffff",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/applications/",
+  "start_url":"/applications/",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "/applications/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
